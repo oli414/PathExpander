@@ -149,6 +149,7 @@ var main = function () {
 registerPlugin({
     name: 'Footpath Expander',
     version: '1.0',
+    licence: "MIT",
     authors: ['Oli414'],
     type: 'local',
     main: main
