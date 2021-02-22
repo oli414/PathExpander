@@ -35,9 +35,9 @@ function expandPathElements(x, y) {
             if (element && element.type == "footpath") {
                 if (element.isQueue)
                     continue;
-                var flags2 = tile.data[16 * i + 9];
-                if (!(flags2 & 1)) {
-                    element.edgesAndCorners = 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128;
+                if (element.slopeDirection == null) {
+                    element.edges = 1 | 2 | 4 | 8;
+                    element.corners = 1 | 2 | 4 | 8;
                 }
             }
         }
@@ -75,16 +75,14 @@ var main = function () {
                     downCoord = e.mapCoords;
                     currentCoord = e.mapCoords;
                 },
-                onMove: function(e) {
-                    if (e.mapCoords.x != 0 || e.mapCoords.y != 0) {
-                        if (e.isDown) {
-                            currentCoord = e.mapCoords;
-                            selectTheMap();
-                        } else {
-                            downCoord = e.mapCoords;
-                            currentCoord = e.mapCoords;
-                            selectTheMap();
-                        }
+                onMove: function (e) {
+                    if (e.isDown) {
+                        currentCoord = e.mapCoords;
+                        selectTheMap();
+                    } else {
+                        downCoord = e.mapCoords;
+                        currentCoord = e.mapCoords;
+                        selectTheMap();
                     }
                 },
                 onUp: function (e) {
@@ -149,7 +147,6 @@ var main = function () {
 registerPlugin({
     name: 'Footpath Expander',
     version: '1.0',
-    licence: "MIT",
     authors: ['Oli414'],
     type: 'local',
     main: main
